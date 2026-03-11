@@ -1,32 +1,47 @@
 import { Link } from "react-router-dom";
-import { Milk, Factory, Leaf, TreePine, Droplets } from "lucide-react";
+import { Milk, Factory, Leaf, TreePine, Droplets, FlaskConical, Lightbulb, PackageSearch } from "lucide-react";
 import heroImage from "@/assets/hero-dairy-plant.jpg";
 
 const expertise = [
-  { icon: Milk, title: "Dairy Products", desc: "From milk powders to whey proteins, caseinate, cheese, ghee and nutrition products." },
-  { icon: Factory, title: "Dairy Technology", desc: "Spray drying, evaporation, UHT, retort systems, dry mix facility design and plant readiness." },
+  { icon: Milk, title: "Dairy Products", desc: "Milk Powder, Dairy Whiteners, Whey Proteins, RTD, Cheese, Lactose, Sweetened Condensed Milk, Nutrition Products." },
+  { icon: Factory, title: "Dairy Technology", desc: "Spray drying, evaporation, UHT, retort, dry mix MR1 facility design, dry blending and plant readiness." },
   { icon: Droplets, title: "Fresh Milk Sourcing", desc: "AB/AT-free milk systems, A2 milk projects, organic milk supply chain." },
   { icon: Leaf, title: "Coconut Processing", desc: "Coconut cream and coconut milk powder processing & commercialization." },
   { icon: TreePine, title: "Sustainability & Carbon", desc: "Carbon reduction strategies for dairy plants and emission control consulting." },
+  { icon: FlaskConical, title: "Recipe Formulation & Concept Refinement", desc: "We develop and refine recipes for taste, nutrition, stability, and scalability—balancing sensory appeal with operational feasibility and cost targets." },
+  { icon: Lightbulb, title: "Innovation Pipeline Development", desc: "We help build structured, sustainable innovation pipelines—prioritizing projects, managing risk, and ensuring a steady flow of market-relevant innovations." },
+  { icon: PackageSearch, title: "Sourcing Strategy & Vendor Evaluation", desc: "We design sourcing strategies that improve reliability, quality, and cost efficiency, while evaluating and onboarding the right suppliers for long-term value creation." },
 ];
 
 const whoWeHelp = [
-  "Dairy manufacturers",
-  "Milk processors",
-  "Exporters",
-  "Nutrition product companies",
-  "Plant investors",
-  "Private equity investing in dairy",
-  "Coconut milk processors",
-  "Greenfield & brownfield dairy projects",
+  { label: "Dairy manufacturers", link: "/services#product-dev" },
+  { label: "Milk processors", link: "/services#tech-consulting" },
+  { label: "Nutrition product companies", link: "/services#product-dev" },
+  { label: "Coconut milk processors", link: "/services#coconut" },
+  { label: "Greenfield & brownfield dairy projects", link: "/services#greenfield" },
 ];
 
 const whyUs = [
-  "40+ years hands-on dairy manufacturing experience",
-  "30 years in Nestlé India (Operations, Technical & Projects)",
-  "Deep knowledge of Indian dairy ecosystem",
-  "Regulatory understanding (FSSAI, export standards)",
-  "Practical, implementable solutions — not theory",
+  {
+    title: "Proven Industry Experience",
+    desc: "35 years of hands-on experience in the dairy industry, including work with multinational organizations.",
+  },
+  {
+    title: "Practical Consulting Approach",
+    desc: "Focused on real, actionable solutions that improve dairy operations and efficiency.",
+  },
+  {
+    title: "End-to-End Dairy Expertise",
+    desc: "Comprehensive understanding of dairy processing, plant operations, and industry systems.",
+  },
+  {
+    title: "Modern Technology Guidance",
+    desc: "Helping dairy businesses adopt modern technologies and operational best practices.",
+  },
+  {
+    title: "Growth-Focused Advisory",
+    desc: "Strategic insights to support long-term growth, scalability, and sustainable operations.",
+  },
 ];
 
 const Index = () => {
@@ -40,21 +55,21 @@ const Index = () => {
         />
         <div className="relative container-narrow py-24 lg:py-36">
           <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold leading-tight max-w-3xl mb-6 animate-fade-in-up">
-            Transforming Dairy Excellence Through Experience, Technology &amp; Sustainability
+            Advancing Dairy Excellence Through Experience, Innovation &amp; Sustainability.
           </h1>
           <p className="text-lg lg:text-xl opacity-80 max-w-2xl leading-relaxed mb-10 animate-fade-in-up" style={{ animationDelay: "0.15s" }}>
-            40+ years of leadership in India's dairy industry. 30 years with Nestlé. Now helping dairy businesses scale, modernize and future-proof operations.
+            With 35 years of industry experience and extensive exposure to multinational organizations, delivering advisory and consulting services to support dairy businesses in scaling operations, improving efficiency, and implementing modern dairy technologies.
           </p>
           <div className="flex flex-wrap gap-4 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
             <Link
               to="/contact"
-              className="inline-flex items-center px-7 py-3 bg-accent text-accent-foreground font-semibold text-sm tracking-wide rounded transition-opacity hover:opacity-90"
+              className="inline-flex items-center px-7 py-3 border border-primary-foreground/40 text-primary-foreground font-semibold text-sm tracking-wide rounded transition-colors hover:bg-primary-foreground/10"
             >
               Book a Consultation
             </Link>
             <Link
               to="/services"
-              className="inline-flex items-center px-7 py-3 border border-primary-foreground/40 text-primary-foreground font-semibold text-sm tracking-wide rounded transition-colors hover:bg-primary-foreground/10"
+              className="inline-flex items-center px-7 py-3 bg-accent text-accent-foreground font-bold text-sm tracking-wide rounded shadow-lg shadow-accent/30 transition-all hover:brightness-110 hover:shadow-xl hover:shadow-accent/40 ring-2 ring-accent/50"
             >
               View Services
             </Link>
@@ -66,11 +81,15 @@ const Index = () => {
       <section className="py-16 lg:py-24">
         <div className="container-narrow">
           <h2 className="font-heading text-2xl lg:text-4xl font-bold text-primary mb-10">Who We Help</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {whoWeHelp.map((item) => (
-              <div key={item} className="bg-card border border-border rounded p-5 text-sm font-medium text-foreground">
-                {item}
-              </div>
+              <Link
+                key={item.label}
+                to={item.link}
+                className="bg-card border border-border rounded p-5 text-sm font-medium text-foreground hover:border-accent hover:text-accent transition-colors"
+              >
+                {item.label} →
+              </Link>
             ))}
           </div>
         </div>
@@ -99,15 +118,15 @@ const Index = () => {
       {/* Why Work With Us */}
       <section className="py-16 lg:py-24">
         <div className="container-narrow">
-          <h2 className="font-heading text-2xl lg:text-4xl font-bold text-primary mb-10">Why Work With Nextgen Solutions</h2>
-          <ul className="space-y-4 max-w-2xl">
+          <h2 className="font-heading text-2xl lg:text-4xl font-bold text-primary mb-10">Why Work With Nextgen Dairy Solution</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
             {whyUs.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <span className="mt-1.5 w-2 h-2 rounded-full bg-accent flex-shrink-0" />
-                <span className="text-foreground leading-relaxed">{item}</span>
-              </li>
+              <div key={item.title} className="border-l-2 border-accent pl-6 py-2">
+                <h3 className="font-heading text-base font-semibold text-primary mb-1">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 

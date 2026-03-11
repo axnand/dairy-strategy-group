@@ -17,10 +17,10 @@ const services: ServiceSection[] = [
     items: [
       "Setting up milk powder plants (SMP, WMP, FCMP)",
       "Sweetened condensed milk production",
-      "Whey processing (DM90, DWP28, WMP80, WPI)",
+      "Whey processing (DM90, DWP28, WPI)",
       "Caseinate & lactose (food & pharma grade)",
-      "Ghee / AMF standardization",
-      "Butter & butter milk powder lines",
+      "Ghee / AMF",
+      "Butter & butter milk powder",
       "Nutrition product formulation",
     ],
     supportItems: {
@@ -37,16 +37,16 @@ const services: ServiceSection[] = [
   },
   {
     id: "tech-consulting",
-    title: "2. Dairy Plant Technology Consulting",
+    title: "2. Dairy Plant Technology",
     intro: "With extensive experience in large-scale dairy plants, we provide:",
     subsections: [
       {
-        heading: "Spray Dryer Consulting",
+        heading: "Spray Dryer",
         items: ["Capacity calculation", "Product quality optimization", "Energy efficiency improvement", "Powder recovery enhancement"],
       },
       {
         heading: "Evaporator Systems",
-        items: ["Multi-effect evaporator design review", "Steam optimization", "Fouling reduction strategies"],
+        items: ["Multi-effect evaporator design review", "Steam optimization", "Fouling reduction strategies", "CIP validation"],
       },
       {
         heading: "UHT & Retort Systems",
@@ -62,7 +62,7 @@ const services: ServiceSection[] = [
       },
       {
         heading: "MR1 Facility Preparedness",
-        items: ["Audit readiness", "Documentation system", "Quality control setup"],
+        items: ["Audit readiness", "Documentation system", "Quality control setup", "Layout planning", "Equipment selection"],
       },
     ],
   },
@@ -73,7 +73,7 @@ const services: ServiceSection[] = [
     items: [
       "Building reliable cow/buffalo milk procurement networks",
       "AB/AT (antibiotic/adulterant) free milk programs",
-      "A2 milk sourcing & positioning",
+      "A2 milk sourcing",
       "Organic milk supply chain development",
       "Farmer training systems",
       "Bulk milk cooler network planning",
@@ -87,7 +87,6 @@ const services: ServiceSection[] = [
       "Coconut cream processing line setup",
       "Coconut milk powder spray drying",
       "Shelf-life improvement",
-      "Export documentation",
       "Process stabilization",
     ],
   },
@@ -98,10 +97,10 @@ const services: ServiceSection[] = [
     items: [
       "Reduce steam & electricity consumption",
       "Waste heat recovery planning",
+      "Waste water recovery",
       "Effluent treatment optimization",
-      "Carbon footprint analysis",
+      "Carbon footprint",
       "Carbon reduction roadmap",
-      "Carbon removal advisory partnerships",
     ],
   },
   {
@@ -110,10 +109,8 @@ const services: ServiceSection[] = [
     intro: "End-to-end support:",
     items: [
       "Techno-commercial feasibility study",
-      "Project DPR preparation",
       "Vendor selection",
       "Plant layout planning",
-      "Commissioning supervision",
       "Operational stabilization",
     ],
   },

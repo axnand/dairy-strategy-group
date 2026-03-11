@@ -6,7 +6,6 @@ const navItems = [
   { label: "Home", path: "/" },
   { label: "Services", path: "/services" },
   { label: "About", path: "/about" },
-  { label: "Projects", path: "/projects" },
   { label: "Contact", path: "/contact" },
 ];
 
@@ -18,7 +17,7 @@ const SiteHeader = () => {
     <header className="sticky top-0 z-50 bg-card/95 backdrop-blur border-b border-border">
       <div className="container-narrow flex items-center justify-between h-16 lg:h-20">
         <Link to="/" className="font-heading text-xl lg:text-2xl font-bold tracking-tight text-primary">
-          Nextgen Solutions
+          Nextgen Dairy Solution
         </Link>
 
         {/* Desktop nav */}

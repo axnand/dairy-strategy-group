@@ -10,18 +10,18 @@ const beliefs = [
 
 const About = () => (
   <>
-    <PageHero title="About Nextgen Solutions" subtitle="Bridging global dairy standards with Indian operational realities." />
+    <PageHero title="About Nextgen Dairy Solution" subtitle="Leading the Next Generation of Dairy" />
 
     <section className="py-16 lg:py-24">
       <div className="container-narrow max-w-3xl">
         <p className="text-lg leading-relaxed text-foreground mb-6">
-          Nextgen Solutions is an independent dairy consulting firm founded by a 40+ year veteran of the Indian dairy industry, including 30 years with Nestlé India.
+          NextGen Dairy Solution is an independent dairy consulting firm founded by an industry veteran with over four decades of experience in the dairy sector, including 35 years with leading multinational organizations.
         </p>
         <p className="text-lg leading-relaxed text-foreground mb-6">
-          Our mission is to bridge global dairy standards with Indian operational realities.
+          Our mission is to bridge global dairy standards with practical operational expertise, helping businesses modernize, optimize, and scale efficiently.
         </p>
         <p className="leading-relaxed text-muted-foreground mb-10">
-          With deep expertise in milk powder plants, whey processing, UHT systems, coconut milk technology and sustainability initiatives, we support businesses across India in building scalable, compliant and future-ready dairy operations.
+          With deep expertise in milk powder plants, whey processing, UHT systems, coconut milk technology, and sustainability initiatives, NextGen Dairy Solution supports dairy companies worldwide in building scalable, compliant, and future-ready operations.
         </p>
 
         <div className="section-divider mb-10" />

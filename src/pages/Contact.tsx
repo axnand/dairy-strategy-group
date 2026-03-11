@@ -41,7 +41,7 @@ const Contact = () => {
   return (
     <>
       <PageHero
-        title="Contact Nextgen Solutions"
+        title="Contact Nextgen Dairy Solution"
         subtitle="Whether you are planning a new dairy plant, upgrading technology, improving milk sourcing or reducing carbon emissions — we are here to support."
       />
 

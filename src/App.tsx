@@ -7,7 +7,6 @@ import SiteLayout from "./components/SiteLayout";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import About from "./pages/About";
-import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
@@ -24,7 +23,6 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/services" element={<Services />} />
             <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
           </Route>
           <Route path="*" element={<NotFound />} />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PageHero from "@/components/PageHero";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const inquiryOptions = [
   "New Plant Setup",
@@ -14,6 +15,7 @@ const inquiryOptions = [
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -29,10 +31,65 @@ const Contact = () => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({ title: "Thank you", description: "Your message has been received. We'll be in touch shortly." });
-    setForm({ name: "", company: "", designation: "", email: "", phone: "", location: "", inquiry: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      // 1. Save to database
+      const { error: dbError } = await supabase
+        .from("contact_submissions")
+        .insert({
+          name: form.name.trim(),
+          company: form.company.trim() || null,
+          designation: form.designation.trim() || null,
+          email: form.email.trim(),
+          phone: form.phone.trim() || null,
+          location: form.location.trim() || null,
+          inquiry: form.inquiry,
+          message: form.message.trim(),
+        });
+
+      if (dbError) {
+        console.error("Database error:", dbError);
+        throw new Error("Failed to save your submission");
+      }
+
+      // 2. Trigger email notification
+      const { error: fnError } = await supabase.functions.invoke("send-contact-email", {
+        body: {
+          name: form.name.trim(),
+          company: form.company.trim(),
+          designation: form.designation.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          location: form.location.trim(),
+          inquiry: form.inquiry,
+          message: form.message.trim(),
+        },
+      });
+
+      if (fnError) {
+        console.error("Email notification error:", fnError);
+        // Don't throw — form data is already saved
+      }
+
+      toast({
+        title: "Thank you",
+        description: "Your message has been received. We'll be in touch shortly.",
+      });
+
+      setForm({ name: "", company: "", designation: "", email: "", phone: "", location: "", inquiry: "", message: "" });
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast({
+        title: "Submission failed",
+        description: "Something went wrong. Please try again or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClass =
@@ -76,9 +133,10 @@ const Contact = () => {
 
             <button
               type="submit"
-              className="inline-flex items-center px-8 py-3 bg-primary text-primary-foreground font-semibold text-sm tracking-wide rounded transition-opacity hover:opacity-90"
+              disabled={isSubmitting}
+              className="inline-flex items-center px-8 py-3 bg-primary text-primary-foreground font-semibold text-sm tracking-wide rounded transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Schedule a Consultation
+              {isSubmitting ? "Submitting..." : "Schedule a Consultation"}
             </button>
           </form>
         </div>

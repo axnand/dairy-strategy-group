@@ -7,6 +7,8 @@ interface ServiceSection {
   subsections?: { heading: string; items: string[] }[];
   items?: string[];
   supportItems?: { heading: string; items: string[] };
+  hasImage?: boolean;
+  imageAlt?: string;
 }
 
 const services: ServiceSection[] = [
@@ -34,6 +36,8 @@ const services: ServiceSection[] = [
         "Export compliance advisory",
       ],
     },
+    hasImage: true,
+    imageAlt: "Dairy product development and commercialization facility",
   },
   {
     id: "tech-consulting",
@@ -78,6 +82,8 @@ const services: ServiceSection[] = [
       "Farmer training systems",
       "Bulk milk cooler network planning",
     ],
+    hasImage: true,
+    imageAlt: "Fresh milk sourcing and quality systems infrastructure",
   },
   {
     id: "coconut",
@@ -89,6 +95,8 @@ const services: ServiceSection[] = [
       "Shelf-life improvement",
       "Process stabilization",
     ],
+    hasImage: true,
+    imageAlt: "Coconut milk and plant-based dairy processing",
   },
   {
     id: "sustainability",
@@ -102,6 +110,8 @@ const services: ServiceSection[] = [
       "Carbon footprint",
       "Carbon reduction roadmap",
     ],
+    hasImage: true,
+    imageAlt: "Sustainability and carbon strategy in dairy operations",
   },
   {
     id: "greenfield",
@@ -115,6 +125,30 @@ const services: ServiceSection[] = [
     ],
   },
 ];
+
+const subsectionImageAlts: Record<string, string> = {
+  "Spray Dryer": "Industrial spray dryer equipment for dairy processing",
+  "Evaporator Systems": "Multi-effect evaporator system in dairy plant",
+  "UHT & Retort Systems": "UHT and retort processing systems",
+  "Ion Exchange & Lactose Processing": "Ion exchange equipment for lactose processing",
+  "Hygienic Dry Mix Facility Design": "Hygienic dry mix facility layout",
+  "MR1 Facility Preparedness": "MR1 facility readiness and audit setup",
+};
+
+const ImagePlaceholder = ({ alt }: { alt: string }) => (
+  <div className="mt-6 mb-8 mx-auto w-full max-w-[800px]">
+    <div className="relative w-full rounded-lg border-2 border-dashed border-border bg-muted/40 shadow-sm overflow-hidden" style={{ aspectRatio: '16/9' }}>
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-muted-foreground">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-40">
+          <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+          <circle cx="9" cy="9" r="2" />
+          <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+        </svg>
+        <span className="text-xs opacity-60 text-center px-4">{alt}</span>
+      </div>
+    </div>
+  </div>
+);
 
 const Services = () => (
   <>
@@ -152,6 +186,11 @@ const Services = () => (
               </div>
             )}
 
+            {/* Image placeholder for sections with hasImage */}
+            {service.hasImage && service.imageAlt && (
+              <ImagePlaceholder alt={service.imageAlt} />
+            )}
+
             {service.subsections && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                 {service.subsections.map((sub) => (
@@ -165,6 +204,8 @@ const Services = () => (
                         </li>
                       ))}
                     </ul>
+                    {/* Image placeholder inside each subsection card */}
+                    <ImagePlaceholder alt={subsectionImageAlts[sub.heading] || `${sub.heading} equipment`} />
                   </div>
                 ))}
               </div>

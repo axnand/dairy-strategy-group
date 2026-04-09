@@ -9,6 +9,7 @@ interface ServiceSection {
   supportItems?: { heading: string; items: string[] };
   hasImage?: boolean;
   imageAlt?: string;
+  imageSrc?: string;
 }
 
 const services: ServiceSection[] = [
@@ -38,6 +39,7 @@ const services: ServiceSection[] = [
     },
     hasImage: true,
     imageAlt: "Dairy product development and commercialization facility",
+    imageSrc: "/dairy-product.png",
   },
   {
     id: "tech-consulting",
@@ -84,6 +86,7 @@ const services: ServiceSection[] = [
     ],
     hasImage: true,
     imageAlt: "Fresh milk sourcing and quality systems infrastructure",
+    imageSrc: "/fresh-milk.png",
   },
   {
     id: "coconut",
@@ -97,6 +100,7 @@ const services: ServiceSection[] = [
     ],
     hasImage: true,
     imageAlt: "Coconut milk and plant-based dairy processing",
+    imageSrc: "/coconut-milk.png",
   },
   {
     id: "sustainability",
@@ -112,6 +116,7 @@ const services: ServiceSection[] = [
     ],
     hasImage: true,
     imageAlt: "Sustainability and carbon strategy in dairy operations",
+    imageSrc: "/sustainability.png",
   },
   {
     id: "greenfield",
@@ -126,27 +131,23 @@ const services: ServiceSection[] = [
   },
 ];
 
-const subsectionImageAlts: Record<string, string> = {
-  "Spray Dryer": "Industrial spray dryer equipment for dairy processing",
-  "Evaporator Systems": "Multi-effect evaporator system in dairy plant",
-  "UHT & Retort Systems": "UHT and retort processing systems",
-  "Ion Exchange & Lactose Processing": "Ion exchange equipment for lactose processing",
-  "Hygienic Dry Mix Facility Design": "Hygienic dry mix facility layout",
-  "MR1 Facility Preparedness": "MR1 facility readiness and audit setup",
+const subsectionImages: Record<string, { src: string; alt: string }> = {
+  "Spray Dryer": { src: "/spray-dryer.png", alt: "Industrial spray dryer equipment for dairy processing" },
+  "Evaporator Systems": { src: "/evaporator.png", alt: "Multi-effect evaporator system in dairy plant" },
+  "UHT & Retort Systems": { src: "/uht.png", alt: "UHT and retort processing systems" },
+  "Ion Exchange & Lactose Processing": { src: "/ion-exchange.png", alt: "Ion exchange equipment for lactose processing" },
+  "Hygienic Dry Mix Facility Design": { src: "/dry-mix.png", alt: "Hygienic dry mix facility layout" },
+  "MR1 Facility Preparedness": { src: "/mr1.png", alt: "MR1 facility readiness and audit setup" },
 };
 
-const ImagePlaceholder = ({ alt }: { alt: string }) => (
+const ServiceImage = ({ src, alt }: { src: string; alt: string }) => (
   <div className="mt-6 mb-8 mx-auto w-full max-w-[800px]">
-    <div className="relative w-full rounded-lg border-2 border-dashed border-border bg-muted/40 shadow-sm overflow-hidden" style={{ aspectRatio: '16/9' }}>
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-muted-foreground">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-40">
-          <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-          <circle cx="9" cy="9" r="2" />
-          <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-        </svg>
-        <span className="text-xs opacity-60 text-center px-4">{alt}</span>
-      </div>
-    </div>
+    <img
+      src={src}
+      alt={alt}
+      className="w-full rounded-lg shadow-sm object-cover"
+      style={{ aspectRatio: '16/9' }}
+    />
   </div>
 );
 
@@ -186,9 +187,9 @@ const Services = () => (
               </div>
             )}
 
-            {/* Image placeholder for sections with hasImage */}
-            {service.hasImage && service.imageAlt && (
-              <ImagePlaceholder alt={service.imageAlt} />
+            {/* Image for sections with hasImage */}
+            {service.hasImage && service.imageSrc && service.imageAlt && (
+              <ServiceImage src={service.imageSrc} alt={service.imageAlt} />
             )}
 
             {service.subsections && (
@@ -204,8 +205,10 @@ const Services = () => (
                         </li>
                       ))}
                     </ul>
-                    {/* Image placeholder inside each subsection card */}
-                    <ImagePlaceholder alt={subsectionImageAlts[sub.heading] || `${sub.heading} equipment`} />
+                    {/* Image inside each subsection card */}
+                    {subsectionImages[sub.heading] && (
+                      <ServiceImage src={subsectionImages[sub.heading].src} alt={subsectionImages[sub.heading].alt} />
+                    )}
                   </div>
                 ))}
               </div>

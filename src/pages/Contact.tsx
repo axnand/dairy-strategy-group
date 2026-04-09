@@ -55,23 +55,32 @@ const Contact = () => {
         throw new Error("Failed to save your submission");
       }
 
-      // 2. Trigger email notification
-      const { error: fnError } = await supabase.functions.invoke("send-contact-email", {
-        body: {
-          name: form.name.trim(),
-          company: form.company.trim(),
-          designation: form.designation.trim(),
-          email: form.email.trim(),
-          phone: form.phone.trim(),
-          location: form.location.trim(),
-          inquiry: form.inquiry,
-          message: form.message.trim(),
-        },
-      });
-
-      if (fnError) {
-        console.error("Email notification error:", fnError);
-        // Don't throw — form data is already saved
+      // 2. Send email notification via Web3Forms
+      try {
+        const emailRes = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            access_key: "YOUR_WEB3FORMS_ACCESS_KEY",
+            subject: `New Contact Inquiry: ${form.inquiry}`,
+            from_name: "Nextgen Dairy Solution Website",
+            name: form.name.trim(),
+            email: form.email.trim(),
+            company: form.company.trim() || "N/A",
+            designation: form.designation.trim() || "N/A",
+            phone: form.phone.trim() || "N/A",
+            location: form.location.trim() || "N/A",
+            inquiry: form.inquiry,
+            message: form.message.trim(),
+          }),
+        });
+        const emailData = await emailRes.json();
+        if (!emailData.success) {
+          console.error("Email notification error:", emailData);
+        }
+      } catch (emailErr) {
+        console.error("Email notification error:", emailErr);
+        // Don't throw — form data is already saved in Supabase
       }
 
       toast({

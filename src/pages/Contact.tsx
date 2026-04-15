@@ -1,7 +1,6 @@
 import { useState } from "react";
 import PageHero from "@/components/PageHero";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 
 const inquiryOptions = [
   "New Plant Setup",
@@ -36,51 +35,27 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // 1. Save to database
-      const { error: dbError } = await supabase
-        .from("contact_submissions")
-        .insert({
+      const emailRes = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "c0320e51-5210-427e-b924-70485f09f984",
+          subject: `New Contact Inquiry: ${form.inquiry}`,
+          from_name: "Nextgen Dairy Solution Website",
           name: form.name.trim(),
-          company: form.company.trim() || null,
-          designation: form.designation.trim() || null,
           email: form.email.trim(),
-          phone: form.phone.trim() || null,
-          location: form.location.trim() || null,
+          company: form.company.trim() || "N/A",
+          designation: form.designation.trim() || "N/A",
+          phone: form.phone.trim() || "N/A",
+          location: form.location.trim() || "N/A",
           inquiry: form.inquiry,
           message: form.message.trim(),
-        });
+        }),
+      });
+      const emailData = await emailRes.json();
 
-      if (dbError) {
-        console.error("Database error:", dbError);
-        throw new Error("Failed to save your submission");
-      }
-
-      // 2. Send email notification via Web3Forms
-      try {
-        const emailRes = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            access_key: "c0320e51-5210-427e-b924-70485f09f984",
-            subject: `New Contact Inquiry: ${form.inquiry}`,
-            from_name: "Nextgen Dairy Solution Website",
-            name: form.name.trim(),
-            email: form.email.trim(),
-            company: form.company.trim() || "N/A",
-            designation: form.designation.trim() || "N/A",
-            phone: form.phone.trim() || "N/A",
-            location: form.location.trim() || "N/A",
-            inquiry: form.inquiry,
-            message: form.message.trim(),
-          }),
-        });
-        const emailData = await emailRes.json();
-        if (!emailData.success) {
-          console.error("Email notification error:", emailData);
-        }
-      } catch (emailErr) {
-        console.error("Email notification error:", emailErr);
-        // Don't throw — form data is already saved in Supabase
+      if (!emailData.success) {
+        throw new Error("Email failed to send");
       }
 
       toast({

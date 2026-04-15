@@ -61,7 +61,7 @@ const Contact = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            access_key: "YOUR_WEB3FORMS_ACCESS_KEY",
+            access_key: "c0320e51-5210-427e-b924-70485f09f984",
             subject: `New Contact Inquiry: ${form.inquiry}`,
             from_name: "Nextgen Dairy Solution Website",
             name: form.name.trim(),

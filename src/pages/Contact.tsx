@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PageHero from "@/components/PageHero";
 import { useToast } from "@/hooks/use-toast";
 
@@ -13,6 +14,7 @@ const inquiryOptions = [
 ];
 
 const Contact = () => {
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
@@ -64,6 +66,7 @@ const Contact = () => {
       });
 
       setForm({ name: "", company: "", designation: "", email: "", phone: "", location: "", inquiry: "", message: "" });
+      navigate("/thank-you");
     } catch (error) {
       console.error("Submission error:", error);
       toast({
